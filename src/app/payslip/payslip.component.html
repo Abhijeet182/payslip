@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="row">
+    <div class="col-10">
+      <div class="jumbotron">
+        <h2>Empolyee Payslip</h2>
+        <form name="form" [formGroup]="form" (ngSubmit)="form.valid && onSubmit()">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text"  class="form-control" formControlName="firstName" [ngClass]="{'is-invalid':form.get('firstName').touched && form.get('firstName').invalid}" required />
+            <div class="invalid-feedback">
+              <div>First Name is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" class="form-control" formControlName="lastName" [ngClass]="{'is-invalid':form.get('lastName').touched && form.get('lastName').invalid}" required />
+            <div class="invalid-feedback">
+              <div>Last Name is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="salary">salary</label>
+            <input type="text" class="form-control" formControlName="salary" [ngClass]="{'is-invalid':form.get('salary').touched && form.get('salary').invalid}"   />
+            <div *ngIf="form.get('salary').touched && form.get('salary').invalid"  class="invalid-feedback">
+              <div *ngIf="form.get('salary').errors.required">Salary Name is required</div>
+              <div *ngIf="form.get('salary').errors.pattern">Salary should be in number</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="superRate">Super Rate</label>
+            <input type="superRate" class="form-control"  formControlName="superRate" [ngClass]="{'is-invalid':form.get('superRate').touched && form.get('superRate').invalid}" />
+            <div *ngIf="form.get('superRate').touched && form.get('superRate').invalid"  class="invalid-feedback">
+              <div *ngIf="form.get('superRate').errors.required">superRate is required</div>
+              <div *ngIf="form.get('superRate').errors.pattern">Super Rate should be in between 1-12%</div>
+            </div>
+           
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary" [disabled]="!form.valid" >Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="tableData.length > 0">
+    <table  class="table pd-b-5" >
+  
+      <thead>
+        <tr>
+        <th>Name</th><th>Pay Period</th><th>Gross Income</th><th>Income Tax</th><th>Net Income</th><th>Super Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let value of tableData">
+        <td>{{value.name}}</td>
+        <td>{{value.payperiod}}</td>
+        <td>{{value.grossIncome}}</td>
+        <td>{{value.incomeTax}}</td>
+        <td>{{value.netIncome}}</td>
+        <td>{{value.superAmount}}</td>
+        </tr>
+    </table>
+  </div>
+</div>
